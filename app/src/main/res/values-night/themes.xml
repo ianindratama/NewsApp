@@ -1,7 +1,26 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.NewsApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
+<resources>
+    <!-- Primary color -->
+    <color name="colorPrimary">#91C1FF</color>
+    <color name="colorOnPrimary">#00315B</color>
+    <color name="colorPrimaryContainer">#004882</color>
+    <color name="colorOnPrimaryContainer">#D4E3FF</color>
+
+    <!-- Secondary color -->
+    <color name="colorSecondary">#BBC7DB</color>
+    <color name="colorOnSecondary">#253140</color>
+    <color name="colorSecondaryContainer">#3B4857</color>
+    <color name="colorOnSecondaryContainer">#D7E3F9</color>
+
+    <!-- Background and Surface -->
+    <color name="colorBackground">#121212</color>
+    <color name="colorOnBackground">#E3E3E3</color>
+    <color name="colorSurface">#1C1B1F</color>
+    <color name="colorOnSurface">#E3E3E3</color>
+
+    <!-- Surface Variant -->
+    <color name="colorSurfaceVariant">#44464F</color>
+    <color name="colorOnSurfaceVariant">#C5C6D0</color>
+
+    <!-- Outline -->
+    <color name="colorOutline">#8E9099</color>
 </resources>
