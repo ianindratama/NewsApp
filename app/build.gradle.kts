@@ -78,5 +78,7 @@ dependencies {
     // Glide
     implementation(libs.glide)
 
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    // Navigation
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
 }

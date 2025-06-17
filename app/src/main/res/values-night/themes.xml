@@ -1,26 +1,27 @@
 <resources>
-    <!-- Primary color -->
-    <color name="colorPrimary">#91C1FF</color>
-    <color name="colorOnPrimary">#00315B</color>
-    <color name="colorPrimaryContainer">#004882</color>
-    <color name="colorOnPrimaryContainer">#D4E3FF</color>
 
-    <!-- Secondary color -->
-    <color name="colorSecondary">#BBC7DB</color>
-    <color name="colorOnSecondary">#253140</color>
-    <color name="colorSecondaryContainer">#3B4857</color>
-    <color name="colorOnSecondaryContainer">#D7E3F9</color>
+    <style name="Theme.NewsApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <item name="colorPrimaryContainer">@color/colorPrimaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/colorOnPrimaryContainer</item>
 
-    <!-- Background and Surface -->
-    <color name="colorBackground">#121212</color>
-    <color name="colorOnBackground">#E3E3E3</color>
-    <color name="colorSurface">#1C1B1F</color>
-    <color name="colorOnSurface">#E3E3E3</color>
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorSecondaryContainer">@color/colorSecondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/colorOnSecondaryContainer</item>
 
-    <!-- Surface Variant -->
-    <color name="colorSurfaceVariant">#44464F</color>
-    <color name="colorOnSurfaceVariant">#C5C6D0</color>
+        <!-- Background and Surface -->
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
 
-    <!-- Outline -->
-    <color name="colorOutline">#8E9099</color>
+        <!-- Other tones -->
+        <item name="colorSurfaceVariant">@color/colorSurfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/colorOnSurfaceVariant</item>
+        <item name="colorOutline">@color/colorOutline</item>
+    </style>
 </resources>

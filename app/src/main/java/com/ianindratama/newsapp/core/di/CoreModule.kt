@@ -9,7 +9,6 @@ import com.ianindratama.newsapp.core.data.source.remote.network.ApiService
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import com.ianindratama.newsapp.core.utils.AppExecutors
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
