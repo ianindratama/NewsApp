@@ -1,6 +1,5 @@
 package com.ianindratama.newsapp.core.data
 
-import androidx.room.Query
 import com.ianindratama.newsapp.core.data.source.local.LocalDataSource
 import com.ianindratama.newsapp.core.data.source.remote.RemoteDataSource
 import com.ianindratama.newsapp.core.data.source.remote.network.ApiResponse
@@ -17,16 +16,16 @@ class NewsRepository(
     private val localDataSource: LocalDataSource,
     private val appExecutors: AppExecutors
 ) : INewsRepository {
-    override fun getAllNews(): Flow<Resource<List<News>>> =
+    override fun getAllHighlightedNews(): Flow<Resource<List<News>>> =
         object : NetworkBoundResource<List<News>, List<NewsResponse>>(appExecutors) {
             override fun loadFromDB(): Flow<List<News>> {
-                return localDataSource.getAllNews().map {
+                return localDataSource.getAllHighlightedNews().map {
                     DataMapper.mapEntitiesToDomain(it)
                 }
             }
 
             override fun createCall(): Flow<ApiResponse<List<NewsResponse>>> =
-                remoteDataSource.getAllNews()
+                remoteDataSource.getAllHighlightedNews()
 
             override suspend fun saveCallResult(data: List<NewsResponse>) {
                 val newsList = DataMapper.mapResponsesToEntities(data)
@@ -52,7 +51,7 @@ class NewsRepository(
                 localDataSource.insertNews(newsList)
             }
 
-            override fun shouldFetch(data: List<News>?): Boolean = data.isNullOrEmpty()
+            override fun shouldFetch(data: List<News>?): Boolean = true
         }.asFlow()
 
 

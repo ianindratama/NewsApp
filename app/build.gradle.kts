@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -62,6 +63,9 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    // TODO: Temporary - Remove this later
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
     // Room
     ksp(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
@@ -81,4 +85,11 @@ dependencies {
     // Navigation
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.navigation.fragment.ktx)
+
+    // Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.material.icons.extended)
 }

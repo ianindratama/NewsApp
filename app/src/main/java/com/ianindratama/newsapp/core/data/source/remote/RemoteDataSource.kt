@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-    fun getAllNews(): Flow<ApiResponse<List<NewsResponse>>> {
+    fun getAllHighlightedNews(): Flow<ApiResponse<List<NewsResponse>>> {
         return flow {
             try {
-                val response = apiService.getAllNews()
+                val response = apiService.getAllHighlightedNews()
                 val dataArray = response.articles
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.articles))
@@ -30,7 +30,7 @@ class RemoteDataSource(private val apiService: ApiService) {
         // TODO: Add implementation for sortBy and language query
         return flow {
             try {
-                val response = apiService.getSearchedNews(query)
+                val response = apiService.getAllSearchedNews(query)
                 val dataArray = response.articles
                 if (dataArray.isNotEmpty()) {
                     emit(ApiResponse.Success(response.articles))

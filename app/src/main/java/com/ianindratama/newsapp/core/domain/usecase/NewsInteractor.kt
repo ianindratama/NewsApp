@@ -6,8 +6,12 @@ import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import kotlinx.coroutines.flow.Flow
 
 class NewsInteractor(private val newsRepository: INewsRepository): NewsUseCase {
-    override fun getAllNews(): Flow<Resource<List<News>>> {
-        return newsRepository.getAllNews()
+    override fun getAllHighlightedNews(): Flow<Resource<List<News>>> {
+        return newsRepository.getAllHighlightedNews()
+    }
+
+    override fun getAllSearchedNews(query: String): Flow<Resource<List<News>>> {
+        return newsRepository.getAllSearchedNews(query)
     }
 
     override fun getAllFavoriteNews(): Flow<List<News>> {

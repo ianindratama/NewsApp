@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 
 class LocalDataSource(private val newsDao: NewsDao) {
 
-    fun getAllNews(): Flow<List<NewsEntity>> = newsDao.getAllNews()
+    fun getAllHighlightedNews(): Flow<List<NewsEntity>> = newsDao.getAllHighlightedNews()
 
-    fun getAllSearchedNews(search: String): Flow<List<NewsEntity>> = newsDao.getSearchedNews(search)
+    fun getAllSearchedNews(search: String): Flow<List<NewsEntity>> = newsDao.getAllSearchedNews(search)
 
-    fun getAllFavoriteNews(): Flow<List<NewsEntity>> = newsDao.getFavoriteNews()
+    fun getAllFavoriteNews(): Flow<List<NewsEntity>> = newsDao.getAllFavoriteNews()
 
     suspend fun insertNews(newsList: List<NewsEntity>) = newsDao.insertNews(newsList)
 

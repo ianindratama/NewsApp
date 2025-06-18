@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface INewsRepository {
 
-    fun getAllNews(): Flow<Resource<List<News>>>
+    fun getAllHighlightedNews(): Flow<Resource<List<News>>>
 
     fun getAllSearchedNews(search: String): Flow<Resource<List<News>>>
 

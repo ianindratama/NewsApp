@@ -8,13 +8,13 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("top-headlines")
-    suspend fun getAllNews(
+    suspend fun getAllHighlightedNews(
         @Query("language") language: String = "en",
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
     ): ListNewsResponse
 
     @GET("everything")
-    suspend fun getSearchedNews(
+    suspend fun getAllSearchedNews(
         @Query("q") query: String = "cancer",
         @Query("sortBy") sortBy: String = "publishedAt",
         @Query("language") language: String = "en",

@@ -12,13 +12,13 @@ import kotlinx.coroutines.flow.Flow
 interface NewsDao {
 
     @Query("SELECT * FROM news")
-    fun getAllNews(): Flow<List<NewsEntity>>
+    fun getAllHighlightedNews(): Flow<List<NewsEntity>>
 
     @Query("SELECT * FROM news where title LIKE '%' || :search || '%' OR description LIKE '%' || :search || '%' OR content LIKE '%' || :search || '%'")
-    fun getSearchedNews(search: String): Flow<List<NewsEntity>>
+    fun getAllSearchedNews(search: String): Flow<List<NewsEntity>>
 
     @Query("SELECT * FROM news where isFavorite = 1")
-    fun getFavoriteNews(): Flow<List<NewsEntity>>
+    fun getAllFavoriteNews(): Flow<List<NewsEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNews(news: List<NewsEntity>)
