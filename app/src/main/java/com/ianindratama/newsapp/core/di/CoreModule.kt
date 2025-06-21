@@ -8,6 +8,7 @@ import com.ianindratama.newsapp.core.data.source.remote.RemoteDataSource
 import com.ianindratama.newsapp.core.data.source.remote.network.ApiService
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import com.ianindratama.newsapp.core.utils.AppExecutors
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -27,9 +28,19 @@ val databaseModule = module {
 
 val networkModule = module {
     single {
+        Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .header("User-Agent", "NewsApp/1.0")
+                .build()
+            chain.proceed(request)
+        }
+    }
+
+    single {
         OkHttpClient.Builder()
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .addInterceptor(get())
             .build()
     }
     single {
