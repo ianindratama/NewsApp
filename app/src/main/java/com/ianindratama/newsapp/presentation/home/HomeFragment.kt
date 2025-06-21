@@ -1,9 +1,6 @@
 package com.ianindratama.newsapp.presentation.home
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,11 +30,15 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.core.data.Resource
+import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
 import com.ianindratama.newsapp.databinding.FragmentHomeBinding
+import com.ianindratama.newsapp.presentation.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -61,9 +62,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as MainActivity).updateAppBarTitle(getString(R.string.app_name))
+
         binding.appBarWithSearch.setContent {
             val searchQuery by homeViewModel.searchNewsQuery.collectAsState()
 
+            // TODO: Optional - Add Theme implementation for Compose
             SearchAppBar(
                 modifier = Modifier,
                 query = searchQuery,
@@ -81,14 +85,11 @@ class HomeFragment : Fragment() {
 
         val newsAdapter = NewsAdapter()
         newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickCallback {
-            override fun onItemClicked(newsUrl: String?) {
-                if (newsUrl != null) {
-                    val web = Intent(
-                        Intent.ACTION_VIEW,
-                        Uri.parse(newsUrl)
-                    )
-                    startActivity(web)
-                }
+            override fun onItemClicked(newsData: News) {
+                val toDetailActivity =
+                    HomeFragmentDirections.actionHomeFragmentToDetailActivity(newsData)
+
+                view.findNavController().navigate(toDetailActivity)
             }
         })
 

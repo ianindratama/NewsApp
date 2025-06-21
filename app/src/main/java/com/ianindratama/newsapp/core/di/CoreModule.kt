@@ -1,7 +1,6 @@
 package com.ianindratama.newsapp.core.di
 
 import androidx.room.Room
-import com.ianindratama.newsapp.BuildConfig
 import com.ianindratama.newsapp.core.data.NewsRepository
 import com.ianindratama.newsapp.core.data.source.local.LocalDataSource
 import com.ianindratama.newsapp.core.data.source.local.room.NewsDatabase
@@ -10,7 +9,6 @@ import com.ianindratama.newsapp.core.data.source.remote.network.ApiService
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import com.ianindratama.newsapp.core.utils.AppExecutors
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -28,18 +26,10 @@ val databaseModule = module {
 }
 
 val networkModule = module {
-    // TODO: Temporary - Remove this later
-    val loggingInterceptor = if(BuildConfig.DEBUG){
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    }else{
-        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
-    }
-
     single {
         OkHttpClient.Builder()
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
-            .addInterceptor(loggingInterceptor)
             .build()
     }
     single {

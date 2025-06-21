@@ -23,4 +23,7 @@
 
     <!-- Outline -->
     <color name="colorOutline">#8E9099</color>
+
+    <!-- Others -->
+    <color name="colorTransparent">#00000000</color>
 </resources>

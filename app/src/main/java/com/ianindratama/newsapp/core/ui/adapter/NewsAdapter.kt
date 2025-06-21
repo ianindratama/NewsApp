@@ -47,7 +47,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
         holder.tvPublishedAt.text = parseNewsTimestamp(newsData.publishedAt)
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(newsData.url)
+            onItemClickCallback.onItemClicked(newsData)
         }
 
     }
@@ -62,7 +62,7 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(newsUrl: String?)
+        fun onItemClicked(newsData: News)
     }
 
     companion object {

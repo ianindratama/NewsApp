@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.androidx.navigation.safeargs)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.kotlin.compose)
 }
@@ -62,9 +63,6 @@ dependencies {
     // Networking
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-
-    // TODO: Temporary - Remove this later
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // Room
     ksp(libs.room.compiler)

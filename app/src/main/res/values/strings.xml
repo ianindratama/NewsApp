@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="favorites_fragment_title">Your Favorites News</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_search_news">Search News</string>
     <string name="cd_clear_search">Clear Search</string>
     <string name="cd_search_news">Search News</string>
+    <string name="settings_fragment_title">Settings</string>
+
+    <string name="news_source">Source: %1s</string>
+    <string name="cd_image_news">Image News</string>
+    <string name="cd_favorite_news">Add to favorite news</string>
+    <string name="news_author">Author: %1s</string>
 </resources>
