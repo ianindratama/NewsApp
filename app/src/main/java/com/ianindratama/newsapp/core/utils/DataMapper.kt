@@ -25,30 +25,20 @@ object DataMapper {
 
     fun mapEntitiesToDomain(input: List<NewsEntity>): List<News> =
         input.map {
-            News(
-                id = it.id,
-                url = it.url,
-                source = it.source,
-                publishedAt = it.publishedAt,
-                author = it.author,
-                urlToImage = it.urlToImage,
-                description = it.description,
-                title = it.title,
-                content = it.content,
-                isFavorite = it.isFavorite
-            )
+            mapEntityToDomain(it)
         }
 
-    fun mapDomainToEntity(input: News) = NewsEntity(
-        id =  input.id,
-        url = input.url,
-        source = input.source,
-        publishedAt = input.publishedAt,
-        author = input.author,
-        urlToImage = input.urlToImage,
-        description = input.description,
-        title = input.title,
-        content = input.content,
-        isFavorite = input.isFavorite
-    )
+    fun mapEntityToDomain(input: NewsEntity): News =
+        News(
+            id = input.id,
+            url = input.url,
+            source = input.source,
+            publishedAt = input.publishedAt,
+            author = input.author,
+            urlToImage = input.urlToImage,
+            description = input.description,
+            title = input.title,
+            content = input.content,
+            isFavorite = input.isFavorite
+        )
 }

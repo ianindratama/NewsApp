@@ -8,5 +8,6 @@ interface NewsUseCase {
     fun getAllHighlightedNews(): Flow<Resource<List<News>>>
     fun getAllSearchedNews(query: String): Flow<Resource<List<News>>>
     fun getAllFavoriteNews(): Flow<List<News>>
-    fun setFavoriteNews(news: News, newIsFavorite: Boolean)
+    fun getFavoriteNews(newsId: Long): Flow<News>
+    fun setFavoriteNews(newsId: Long, newIsFavorite: Boolean)
 }

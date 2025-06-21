@@ -61,10 +61,15 @@ class NewsRepository(
         }
     }
 
-    override fun setFavoriteNews(news: News, newIsFavorite: Boolean) {
-        val tourismEntity = DataMapper.mapDomainToEntity(news)
+    override fun getFavoriteNews(newsId: Long): Flow<News> {
+        return localDataSource.getFavoriteNews(newsId).map {
+            DataMapper.mapEntityToDomain(it)
+        }
+    }
+
+    override fun setFavoriteNews(newsId: Long, newIsFavorite: Boolean) {
         appExecutors.diskIO().execute {
-            localDataSource.setFavoriteNews(tourismEntity, newIsFavorite)
+            localDataSource.setFavoriteNews(newsId, newIsFavorite)
         }
     }
 }

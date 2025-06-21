@@ -5,7 +5,8 @@ import com.ianindratama.newsapp.core.di.databaseModule
 import com.ianindratama.newsapp.core.di.networkModule
 import com.ianindratama.newsapp.core.di.repositoryModule
 import com.ianindratama.newsapp.di.useCaseModule
-import com.ianindratama.newsapp.di.viewModelModule
+import com.ianindratama.newsapp.di.commonViewModelModule
+import com.ianindratama.newsapp.di.detailViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -25,7 +26,8 @@ class MyApplication : Application() {
                     networkModule,
                     repositoryModule,
                     useCaseModule,
-                    viewModelModule
+                    commonViewModelModule,
+                    detailViewModelModule
                 )
             )
         }

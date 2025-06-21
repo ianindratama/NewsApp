@@ -12,10 +12,11 @@ class LocalDataSource(private val newsDao: NewsDao) {
 
     fun getAllFavoriteNews(): Flow<List<NewsEntity>> = newsDao.getAllFavoriteNews()
 
+    fun getFavoriteNews(newsId: Long): Flow<NewsEntity> = newsDao.getFavoriteNews(newsId)
+
     suspend fun insertNews(newsList: List<NewsEntity>) = newsDao.insertNews(newsList)
 
-    fun setFavoriteNews(newsEntity: NewsEntity, newIsFavorite: Boolean) {
-        newsEntity.isFavorite = newIsFavorite
-        newsDao.updateFavoriteTourism(newsEntity)
+    fun setFavoriteNews(newsId: Long, newIsFavorite: Boolean) {
+        newsDao.updateFavoriteTourism(newsId, newIsFavorite)
     }
 }

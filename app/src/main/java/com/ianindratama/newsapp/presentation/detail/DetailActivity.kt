@@ -9,10 +9,18 @@ import com.bumptech.glide.Glide
 import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.databinding.ActivityDetailBinding
 import com.ianindratama.newsapp.presentation.utils.cleanNewsContent
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+
+    // TODO: Change what Main send to Detail. Change from sending News to just the news ID
+    private val detailViewModel: DetailViewModel by viewModel {
+        val newsId = DetailActivityArgs.fromBundle(intent.extras as Bundle).newsData.id
+        parametersOf(newsId)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -31,31 +39,37 @@ class DetailActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        val newsData = DetailActivityArgs.fromBundle(intent.extras as Bundle).newsData
+        detailViewModel.favoriteNews.observe(this) { newsData ->
+            newsData.let {
+                Glide.with(this@DetailActivity)
+                    .load(it.urlToImage)
+                    .into(binding.ivNewsImage)
 
-        newsData.let {
-            Glide.with(this@DetailActivity)
-                .load(it.urlToImage)
-                .into(binding.ivNewsImage)
+                binding.tvNewsTitle.text = it.title
+                binding.tvNewsSource.text = getString(R.string.news_source, it.source)
 
-            binding.tvNewsTitle.text = it.title
-            binding.tvNewsSource.text = getString(R.string.news_source, it.source)
+                binding.tvNewsContent.text = it.content
+                binding.tvNewsContent.cleanNewsContent(it.content, it.description, it.url)
 
-            binding.tvNewsContent.text = it.content
-            binding.tvNewsContent.cleanNewsContent(it.content, it.description, it.url)
+                val author = it.author
+                binding.tvNewsAuthor.text = getString(
+                    R.string.news_author,
+                    author.ifEmpty { it.source }
+                )
 
-            val author = it.author
-            binding.tvNewsAuthor.text = getString(
-                R.string.news_author,
-                author.ifEmpty { it.source }
-            )
-
-            val isFavoriteImage =
-                if (it.isFavorite) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24
-
-            binding.fabFavorite.setImageResource(isFavoriteImage)
+                setFavoriteNewsImage(it.isFavorite)
+            }
         }
 
+        binding.fabFavorite.setOnClickListener {
+            detailViewModel.updateFavoriteNewsStatus()
+        }
+    }
 
+    private fun setFavoriteNewsImage(isFavorite: Boolean) {
+        val isFavoriteImage =
+            if (isFavorite) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24
+
+        binding.fabFavorite.setImageResource(isFavoriteImage)
     }
 }

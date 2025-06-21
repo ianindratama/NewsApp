@@ -12,6 +12,8 @@ interface INewsRepository {
 
     fun getAllFavoriteNews(): Flow<List<News>>
 
-    fun setFavoriteNews(news: News, newIsFavorite: Boolean)
+    fun getFavoriteNews(newsId: Long): Flow<News>
+
+    fun setFavoriteNews(newsId: Long, newIsFavorite: Boolean)
 
 }

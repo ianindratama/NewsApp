@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.ianindratama.newsapp.core.data.source.local.entity.NewsEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -20,10 +19,13 @@ interface NewsDao {
     @Query("SELECT * FROM news where isFavorite = 1")
     fun getAllFavoriteNews(): Flow<List<NewsEntity>>
 
+    @Query("SELECT * FROM news where id = :newsId")
+    fun getFavoriteNews(newsId: Long): Flow<NewsEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNews(news: List<NewsEntity>)
 
-    @Update
-    fun updateFavoriteTourism(news: NewsEntity)
+    @Query("UPDATE news SET isFavorite = :newIsFavorite WHERE id = :newsId")
+    fun updateFavoriteTourism(newsId: Long, newIsFavorite: Boolean)
 
 }
