@@ -27,7 +27,6 @@ class RemoteDataSource(private val apiService: ApiService) {
     }
 
     fun getAllSearchedNews(query: String): Flow<ApiResponse<List<NewsResponse>>> {
-        // TODO: Add implementation for sortBy and language query
         return flow {
             try {
                 val response = apiService.getAllSearchedNews(query)
