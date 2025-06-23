@@ -9,13 +9,12 @@ interface ApiService {
 
     @GET("top-headlines")
     suspend fun getAllHighlightedNews(
-        @Query("language") language: String = "en",
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
     ): ListNewsResponse
 
     @GET("everything")
     suspend fun getAllSearchedNews(
-        @Query("q") query: String = "cancer",
+        @Query("q") query: String,
         @Query("apiKey") apiKey: String = BuildConfig.NEWS_API_KEY
     ) : ListNewsResponse
 
