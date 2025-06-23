@@ -12,4 +12,32 @@
     <string name="cd_image_news">Image News</string>
     <string name="cd_favorite_news">Add to favorite news</string>
     <string name="news_author">Author: %1s</string>
+
+    <!-- Settings Preference - Dark Mode -->
+    <string name="display_header">Display</string>
+    <string name="pref_dark_title">Dark mode</string>
+    <string name="pref_key_dark" translatable="false">key_dark_mode</string>
+    <string name="pref_dark_auto" translatable="false">auto</string>
+    <string name="pref_dark_on" translatable="false">on</string>
+    <string name="pref_dark_off" translatable="false">off</string>
+    <string name="dark_mode_auto">Automatic</string>
+    <string name="dark_mode_on">Dark mode</string>
+    <string name="dark_mode_off">Light mode</string>
+
+    <string-array name="dark_mode">
+        <item>@string/dark_mode_auto</item>
+        <item>@string/dark_mode_on</item>
+        <item>@string/dark_mode_off</item>
+    </string-array>
+
+    <string-array name="dark_mode_value">
+        <item>@string/pref_dark_auto</item>
+        <item>@string/pref_dark_on</item>
+        <item>@string/pref_dark_off</item>
+    </string-array>
+
+    <!-- Settings Preference - Version -->
+    <string name="display_version">Version</string>
+    <string name="pref_appVersion_title">App Version</string>
+    <string name="pref_appVersion_summary">1.0</string>
 </resources>
