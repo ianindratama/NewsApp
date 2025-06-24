@@ -22,6 +22,7 @@
             android:layout_width="125dp"
             android:layout_height="0dp"
             android:scaleType="fitXY"
+            android:contentDescription="@string/cd_item_image_news"
             android:adjustViewBounds="true"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"

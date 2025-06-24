@@ -1,11 +1,8 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.androidx.navigation.safeargs)
-    alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.kotlin.compose)
 }
 
@@ -21,10 +18,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val properties = Properties()
-        properties.load(project.rootProject.file("local.properties").inputStream())
-        buildConfigField("String", "NEWS_API_KEY", properties.getProperty("NEWS_API_KEY"))
     }
 
     buildTypes {
@@ -50,35 +43,21 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
 
-    implementation(libs.androidx.core.ktx)
+    // Android
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Networking
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-
-    // Room
-    ksp(libs.room.compiler)
-    implementation(libs.androidx.room.ktx)
-
     // Preference
     implementation(libs.androidx.preference.ktx)
 
-    // DI
-    implementation(libs.koin.android)
-
     // Lifecycle
     implementation(libs.androidx.lifecycle.livedata.ktx)
-
-    // Glide
-    implementation(libs.glide)
 
     // Navigation
     implementation(libs.androidx.navigation.ui.ktx)

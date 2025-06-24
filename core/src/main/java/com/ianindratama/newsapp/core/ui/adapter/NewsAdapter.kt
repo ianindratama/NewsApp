@@ -1,20 +1,17 @@
 package com.ianindratama.newsapp.core.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.core.domain.model.News
-import com.ianindratama.newsapp.presentation.utils.parseNewsTimestamp
+import com.ianindratama.newsapp.core.databinding.NewsItemLayoutBinding
+import com.ianindratama.newsapp.core.utils.parseNewsTimestamp
 
 // TODO: Buat model News untuk layer presentation
-class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback
 
@@ -29,36 +26,31 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.news_item_layout, parent, false)
-        return ListViewHolder(view)
+        val binding =
+            NewsItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-
         val newsData = asyncListDiffer.currentList[position]
-
-        Glide.with(holder.itemView.context)
-            .load(newsData.urlToImage)
-            .into(holder.imgPhoto)
-
-        holder.tvTitle.text = newsData.title
-        holder.tvDescription.text = newsData.description
-        holder.tvPublishedAt.text = parseNewsTimestamp(newsData.publishedAt)
-
+        holder.bind(newsData)
         holder.itemView.setOnClickListener {
             onItemClickCallback.onItemClicked(newsData)
         }
-
     }
 
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
-        var tvTitle: TextView = itemView.findViewById(R.id.tv_item_title)
-        var tvDescription: TextView = itemView.findViewById(R.id.tv_item_description)
-        var tvPublishedAt: TextView = itemView.findViewById(R.id.tv_item_publishedAt)
+    class ListViewHolder(private val binding: NewsItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(newsData: News) {
+            Glide.with(binding.root.context)
+                .load(newsData.urlToImage)
+                .into(binding.imgItemPhoto)
+
+            binding.tvItemTitle.text = newsData.title
+            binding.tvItemDescription.text = newsData.description
+            binding.tvItemPublishedAt.text = parseNewsTimestamp(newsData.publishedAt)
+        }
     }
 
     interface OnItemClickCallback {

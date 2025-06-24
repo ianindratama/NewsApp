@@ -48,6 +48,7 @@ androidx-compose-material-icons-extended = { group = "androidx.compose.material"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-parcelize = { id = "kotlin-parcelize" }
 androidx-navigation-safeargs = { id = "androidx.navigation.safeargs" }
