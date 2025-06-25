@@ -1,4 +1,4 @@
-package com.ianindratama.newsapp.presentation.favorites
+package com.ianindratama.newsapp.favorites.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

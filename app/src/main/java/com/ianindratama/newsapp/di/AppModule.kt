@@ -3,7 +3,6 @@ package com.ianindratama.newsapp.di
 import com.ianindratama.newsapp.core.domain.usecase.NewsInteractor
 import com.ianindratama.newsapp.core.domain.usecase.NewsUseCase
 import com.ianindratama.newsapp.presentation.detail.DetailViewModel
-import com.ianindratama.newsapp.presentation.favorites.FavoritesViewModel
 import com.ianindratama.newsapp.presentation.home.HomeViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -17,7 +16,6 @@ val useCaseModule = module {
 @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 val commonViewModelModule = module {
     viewModel { HomeViewModel(get()) }
-    viewModel { FavoritesViewModel(get()) }
 }
 
 val detailViewModelModule = module {

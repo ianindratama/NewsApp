@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.ianindratama.newsapp.presentation.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
@@ -20,11 +20,17 @@
             android:id="@+id/action_homeFragment_to_detailActivity"
             app:destination="@id/detailActivity" />
     </fragment>
+    <!--
+    Note:
+    FavoritesFragment unresolved reference at compile time due to being Dynamic Feature.
+    However, it will be resolved automatically at run-time
+    by the androidx-navigation for dynamic feature library
+    -->
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.ianindratama.newsapp.presentation.favorites.FavoritesFragment"
+        android:name="com.ianindratama.newsapp.favorites.presentation.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" >
+        app:moduleName="favorites">
         <action
             android:id="@+id/action_favoritesFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -44,7 +50,7 @@
         android:id="@+id/detailActivity"
         android:name="com.ianindratama.newsapp.presentation.detail.DetailActivity"
         android:label="activity_detail"
-        tools:layout="@layout/activity_detail" >
+        tools:layout="@layout/activity_detail">
         <argument
             android:name="newsData"
             app:argType="com.ianindratama.newsapp.core.domain.model.News" />

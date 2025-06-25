@@ -1,4 +1,4 @@
-package com.ianindratama.newsapp.presentation.favorites
+package com.ianindratama.newsapp.favorites.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
-import com.ianindratama.newsapp.databinding.FragmentFavoritesBinding
+import com.ianindratama.newsapp.favorites.databinding.FragmentFavoritesBinding
+import com.ianindratama.newsapp.favorites.favoritesViewModelModule
 import com.ianindratama.newsapp.presentation.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.context.loadKoinModules
 
 class FavoritesFragment : Fragment() {
 
@@ -31,6 +33,8 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        loadKoinModules(favoritesViewModelModule)
 
         (requireActivity() as MainActivity).updateAppBarTitle(getString(R.string.favorites_fragment_title))
 
