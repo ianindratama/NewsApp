@@ -67,7 +67,6 @@ class HomeFragment : Fragment() {
         binding.appBarWithSearch.setContent {
             val searchQuery by homeViewModel.searchNewsQuery.collectAsState()
 
-            // TODO: Optional - Add Theme implementation for Compose
             SearchAppBar(
                 modifier = Modifier,
                 query = searchQuery,
