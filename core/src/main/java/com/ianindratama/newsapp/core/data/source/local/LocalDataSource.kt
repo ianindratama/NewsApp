@@ -1,6 +1,6 @@
 package com.ianindratama.newsapp.core.data.source.local
 
-import com.ianindratama.newsapp.core.data.source.local.entity.NewsEntity
+import com.ianindratama.newsapp.core.data.model.NewsEntity
 import com.ianindratama.newsapp.core.data.source.local.room.NewsDao
 import kotlinx.coroutines.flow.Flow
 

@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.databinding.NewsItemLayoutBinding
+import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
 import com.ianindratama.newsapp.core.utils.parseNewsTimestamp
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
@@ -16,7 +16,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
 
     private val asyncListDiffer = AsyncListDiffer(this, DIFF_CALLBACK)
 
-    fun submitNewData(newListOfNews: List<News>) {
+    fun submitNewData(newListOfNews: List<NewsUiModel>) {
         asyncListDiffer.submitList(newListOfNews)
     }
 
@@ -41,7 +41,7 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     class ListViewHolder(private val binding: NewsItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(newsData: News) {
+        fun bind(newsData: NewsUiModel) {
             Glide.with(binding.root.context)
                 .load(newsData.urlToImage)
                 .into(binding.imgItemPhoto)
@@ -53,17 +53,17 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
     }
 
     interface OnItemClickCallback {
-        fun onItemClicked(newsData: News)
+        fun onItemClicked(newsData: NewsUiModel)
     }
 
     companion object {
-        val DIFF_CALLBACK: DiffUtil.ItemCallback<News> =
-            object : DiffUtil.ItemCallback<News>() {
-                override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+        val DIFF_CALLBACK: DiffUtil.ItemCallback<NewsUiModel> =
+            object : DiffUtil.ItemCallback<NewsUiModel>() {
+                override fun areItemsTheSame(oldItem: NewsUiModel, newItem: NewsUiModel): Boolean {
                     return oldItem.id == newItem.id
                 }
 
-                override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+                override fun areContentsTheSame(oldItem: NewsUiModel, newItem: NewsUiModel): Boolean {
                     return oldItem == newItem
                 }
             }

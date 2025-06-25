@@ -35,7 +35,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.core.data.Resource
-import com.ianindratama.newsapp.core.domain.model.News
+import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
 import com.ianindratama.newsapp.databinding.FragmentHomeBinding
 import com.ianindratama.newsapp.presentation.MainActivity
@@ -84,7 +84,7 @@ class HomeFragment : Fragment() {
 
         val newsAdapter = NewsAdapter()
         newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickCallback {
-            override fun onItemClicked(newsData: News) {
+            override fun onItemClicked(newsData: NewsUiModel) {
                 val toDetailActivity =
                     HomeFragmentDirections.actionHomeFragmentToDetailActivity(newsData.id)
 
@@ -97,12 +97,12 @@ class HomeFragment : Fragment() {
         homeViewModel.listOfNews.observe(viewLifecycleOwner) { listOfNews ->
             if (listOfNews != null) {
                 when (listOfNews) {
-                    is Resource.Loading -> binding.circularProgressBar.visibility = View.VISIBLE
                     is Resource.Success -> {
                         binding.circularProgressBar.visibility = View.GONE
-                        newsAdapter.submitNewData(listOfNews.data!!)
+                        listOfNews.data?.let {
+                            newsAdapter.submitNewData(it)
+                        }
                     }
-
                     is Resource.Error -> {
                         binding.circularProgressBar.visibility = View.GONE
                         Toast.makeText(
@@ -111,6 +111,7 @@ class HomeFragment : Fragment() {
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                    is Resource.Loading -> binding.circularProgressBar.visibility = View.VISIBLE
                 }
             }
         }

@@ -3,7 +3,7 @@ package com.ianindratama.newsapp.presentation.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.ianindratama.newsapp.core.domain.usecase.NewsUseCase
-import com.ianindratama.newsapp.core.utils.NewsDataMapper
+import com.ianindratama.newsapp.core.utils.NewsModelMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +22,7 @@ class DetailViewModel(newsId: Long, private val newsUseCase: NewsUseCase) : View
         .distinctUntilChanged()
         .flatMapLatest {
             newsUseCase.getNews(newsId).map {
-                NewsDataMapper.mapDomainToPresentation(it)
+                NewsModelMapper.mapDomainToPresentation(it)
             }
         }
         .asLiveData()

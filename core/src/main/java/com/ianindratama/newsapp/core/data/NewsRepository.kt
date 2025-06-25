@@ -7,7 +7,7 @@ import com.ianindratama.newsapp.core.data.source.remote.response.NewsResponse
 import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import com.ianindratama.newsapp.core.utils.AppExecutors
-import com.ianindratama.newsapp.core.utils.NewsDataMapper
+import com.ianindratama.newsapp.core.utils.NewsModelMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -20,7 +20,7 @@ class NewsRepository(
         object : NetworkBoundResource<List<News>, List<NewsResponse>>(appExecutors) {
             override fun loadFromDB(): Flow<List<News>> {
                 return localDataSource.getAllHighlightedNews().map {
-                    NewsDataMapper.mapEntitiesToDomain(it)
+                    NewsModelMapper.mapListDataToListDomain(it)
                 }
             }
 
@@ -28,7 +28,7 @@ class NewsRepository(
                 remoteDataSource.getAllHighlightedNews()
 
             override suspend fun saveCallResult(data: List<NewsResponse>) {
-                val newsList = NewsDataMapper.mapResponsesToEntities(data)
+                val newsList = NewsModelMapper.mapListResponseToListData(data)
                 localDataSource.insertNews(newsList)
             }
 
@@ -39,7 +39,7 @@ class NewsRepository(
         object : NetworkBoundResource<List<News>, List<NewsResponse>>(appExecutors) {
             override fun loadFromDB(): Flow<List<News>> {
                 return localDataSource.getAllSearchedNews(search).map {
-                    NewsDataMapper.mapEntitiesToDomain(it)
+                    NewsModelMapper.mapListDataToListDomain(it)
                 }
             }
 
@@ -47,7 +47,7 @@ class NewsRepository(
                 remoteDataSource.getAllSearchedNews(search)
 
             override suspend fun saveCallResult(data: List<NewsResponse>) {
-                val newsList = NewsDataMapper.mapResponsesToEntities(data)
+                val newsList = NewsModelMapper.mapListResponseToListData(data)
                 localDataSource.insertNews(newsList)
             }
 
@@ -57,13 +57,13 @@ class NewsRepository(
 
     override fun getAllFavoriteNews(): Flow<List<News>> {
         return localDataSource.getAllFavoriteNews().map {
-            NewsDataMapper.mapEntitiesToDomain(it)
+            NewsModelMapper.mapListDataToListDomain(it)
         }
     }
 
     override fun getNews(newsId: Long): Flow<News> {
         return localDataSource.getNews(newsId).map {
-            NewsDataMapper.mapEntityToDomain(it)
+            NewsModelMapper.mapDataToDomain(it)
         }
     }
 

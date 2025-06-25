@@ -1,4 +1,4 @@
-package com.ianindratama.newsapp.core.data.source.local.entity
+package com.ianindratama.newsapp.core.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

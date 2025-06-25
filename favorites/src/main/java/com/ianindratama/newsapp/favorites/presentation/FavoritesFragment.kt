@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
-import com.ianindratama.newsapp.core.domain.model.News
+import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
 import com.ianindratama.newsapp.favorites.databinding.FragmentFavoritesBinding
 import com.ianindratama.newsapp.favorites.favoritesViewModelModule
@@ -43,7 +43,7 @@ class FavoritesFragment : Fragment() {
 
         val newsAdapter = NewsAdapter()
         newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickCallback {
-            override fun onItemClicked(newsData: News) {
+            override fun onItemClicked(newsData: NewsUiModel) {
                 val toDetailActivity =
                     FavoritesFragmentDirections.actionFavoritesFragmentToDetailActivity(newsData.id)
 

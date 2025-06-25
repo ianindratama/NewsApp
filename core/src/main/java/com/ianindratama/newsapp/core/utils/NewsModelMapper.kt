@@ -1,12 +1,12 @@
 package com.ianindratama.newsapp.core.utils
 
-import com.ianindratama.newsapp.core.data.source.local.entity.NewsEntity
+import com.ianindratama.newsapp.core.data.model.NewsEntity
 import com.ianindratama.newsapp.core.data.source.remote.response.NewsResponse
 import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
 
-object NewsDataMapper {
-    fun mapResponsesToEntities(input: List<NewsResponse>): List<NewsEntity> {
+object NewsModelMapper {
+    fun mapListResponseToListData(input: List<NewsResponse>): List<NewsEntity> {
         val newsList = ArrayList<NewsEntity>()
         input.map {
             val news = NewsEntity(
@@ -24,12 +24,7 @@ object NewsDataMapper {
         return newsList
     }
 
-    fun mapEntitiesToDomain(input: List<NewsEntity>): List<News> =
-        input.map {
-            mapEntityToDomain(it)
-        }
-
-    fun mapEntityToDomain(input: NewsEntity): News =
+    fun mapDataToDomain(input: NewsEntity): News =
         News(
             id = input.id,
             url = input.url,
@@ -42,6 +37,11 @@ object NewsDataMapper {
             content = input.content,
             isFavorite = input.isFavorite
         )
+
+    fun mapListDataToListDomain(input: List<NewsEntity>): List<News> =
+        input.map {
+            mapDataToDomain(it)
+        }
 
     fun mapDomainToPresentation(input: News): NewsUiModel =
         NewsUiModel(
@@ -56,4 +56,9 @@ object NewsDataMapper {
             finalContent = parseNewsFinalContent(input.content, input.description),
             isFavorite = input.isFavorite
         )
+
+    fun mapListDomainToListPresentation(input: List<News>): List<NewsUiModel> =
+        input.map {
+            mapDomainToPresentation(it)
+        }
 }

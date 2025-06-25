@@ -2,7 +2,11 @@ package com.ianindratama.newsapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import com.ianindratama.newsapp.core.data.Resource
+import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.domain.usecase.NewsUseCase
+import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
+import com.ianindratama.newsapp.core.utils.NewsModelMapper
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,12 +15,15 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.merge
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class HomeViewModel(newsUseCase: NewsUseCase) : ViewModel() {
-    private val listOfHighlightedNews = newsUseCase.getAllHighlightedNews()
+    private val listOfHighlightedNews = newsUseCase.getAllHighlightedNews().map { resource ->
+        resource.mapToNewsUiModel()
+    }
 
     private val _searchNewsQuery = MutableStateFlow("")
     val searchNewsQuery: StateFlow<String> = _searchNewsQuery
@@ -27,7 +34,9 @@ class HomeViewModel(newsUseCase: NewsUseCase) : ViewModel() {
         .filter {
             it.trim().isNotEmpty()
         }.flatMapLatest {
-            newsUseCase.getAllSearchedNews(it)
+            newsUseCase.getAllSearchedNews(it).map { resource ->
+                resource.mapToNewsUiModel()
+            }
         }
 
     val listOfNews = merge(listOfHighlightedNews, listOfSearchedNews)
@@ -40,5 +49,19 @@ class HomeViewModel(newsUseCase: NewsUseCase) : ViewModel() {
 
     fun clearSearchQuery() {
         _searchNewsQuery.value = ""
+    }
+}
+
+fun Resource<List<News>>.mapToNewsUiModel(): Resource<List<NewsUiModel>?> {
+    return when (this) {
+        is Resource.Success -> Resource.Success(
+            this.data?.map { news ->
+                NewsModelMapper.mapDomainToPresentation(news)
+            }
+        )
+        is Resource.Error -> Resource.Error(
+            this.message ?: "", null
+        )
+        is Resource.Loading -> Resource.Loading()
     }
 }
