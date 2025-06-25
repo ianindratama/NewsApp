@@ -16,9 +16,8 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
-    // TODO: Change what Main send to Detail. Change from sending News to just the news ID
     private val detailViewModel: DetailViewModel by viewModel {
-        val newsId = DetailActivityArgs.fromBundle(intent.extras as Bundle).newsData.id
+        val newsId = DetailActivityArgs.fromBundle(intent.extras as Bundle).newsDataId
         parametersOf(newsId)
     }
 

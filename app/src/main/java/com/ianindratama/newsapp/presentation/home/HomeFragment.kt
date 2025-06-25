@@ -87,7 +87,7 @@ class HomeFragment : Fragment() {
         newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickCallback {
             override fun onItemClicked(newsData: News) {
                 val toDetailActivity =
-                    HomeFragmentDirections.actionHomeFragmentToDetailActivity(newsData)
+                    HomeFragmentDirections.actionHomeFragmentToDetailActivity(newsData.id)
 
                 view.findNavController().navigate(toDetailActivity)
             }

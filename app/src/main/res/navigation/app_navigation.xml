@@ -52,7 +52,7 @@
         android:label="activity_detail"
         tools:layout="@layout/activity_detail">
         <argument
-            android:name="newsData"
-            app:argType="com.ianindratama.newsapp.core.domain.model.News" />
+            android:name="newsDataId"
+            app:argType="long" />
     </activity>
 </navigation>

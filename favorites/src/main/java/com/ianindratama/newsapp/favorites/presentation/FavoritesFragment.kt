@@ -45,7 +45,7 @@ class FavoritesFragment : Fragment() {
         newsAdapter.setOnItemClickCallback(object : NewsAdapter.OnItemClickCallback {
             override fun onItemClicked(newsData: News) {
                 val toDetailActivity =
-                    FavoritesFragmentDirections.actionFavoritesFragmentToDetailActivity(newsData)
+                    FavoritesFragmentDirections.actionFavoritesFragmentToDetailActivity(newsData.id)
 
                 view.findNavController().navigate(toDetailActivity)
             }
