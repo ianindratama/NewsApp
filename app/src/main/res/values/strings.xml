@@ -42,4 +42,9 @@
     <string name="display_version">Version</string>
     <string name="pref_appVersion_title">App Version</string>
     <string name="pref_appVersion_summary">1.0</string>
+
+    <!-- BottomNavigationBar Icon Text -->
+    <string name="bottom_nav_bar_icon_text_home">Home</string>
+    <string name="bottom_nav_bar_icon_text_favorites">Favorites</string>
+    <string name="bottom_nav_bar_icon_text_settings">Settings</string>
 </resources>
