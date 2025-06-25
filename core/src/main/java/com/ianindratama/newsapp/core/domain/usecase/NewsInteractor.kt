@@ -18,8 +18,8 @@ class NewsInteractor(private val newsRepository: INewsRepository): NewsUseCase {
         return newsRepository.getAllFavoriteNews()
     }
 
-    override fun getFavoriteNews(newsId: Long): Flow<News> {
-        return newsRepository.getFavoriteNews(newsId)
+    override fun getNews(newsId: Long): Flow<News> {
+        return newsRepository.getNews(newsId)
     }
 
     override fun setFavoriteNews(newsId: Long, newIsFavorite: Boolean) {

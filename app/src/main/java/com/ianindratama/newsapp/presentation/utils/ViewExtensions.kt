@@ -12,21 +12,15 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.ianindratama.newsapp.R
 
-fun TextView.cleanNewsContent(mainContent: String, optionalContent: String, seeMoreLink: String) {
+fun TextView.addTextAndHyperLinkToNewsContent(content: String, seeMoreLink: String) {
     val seeMore = "See more"
-    val cleanedContent =
-        Regex("""(.*?[.!?])(?=\s+[A-Z]|…|\s*\[\+\d+ chars])""")
-            .findAll(mainContent)
-            .map { it.value }
-            .joinToString(" ")
-            .ifEmpty {
-                optionalContent
-            }
-            .plus(" ")
-            .plus(seeMore)
-    val finalCleanedContent = SpannableString(cleanedContent)
+    val contentWithSeeMore = content
+        .plus(" ")
+        .plus(seeMore)
 
-    val startIndex = cleanedContent.indexOf(seeMore)
+    val finalContent = SpannableString(contentWithSeeMore)
+
+    val startIndex = contentWithSeeMore.indexOf(seeMore)
     val endIndex = startIndex + seeMore.length
 
     val clickableSpan = object : ClickableSpan() {
@@ -42,10 +36,10 @@ fun TextView.cleanNewsContent(mainContent: String, optionalContent: String, seeM
         }
     }
 
-    finalCleanedContent.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    finalContent.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
 
-    text = finalCleanedContent
+    text = finalContent
     movementMethod = LinkMovementMethod.getInstance()
     highlightColor = ContextCompat.getColor(context, R.color.colorTransparent)
 }

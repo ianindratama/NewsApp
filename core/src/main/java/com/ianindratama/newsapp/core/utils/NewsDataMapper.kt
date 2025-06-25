@@ -3,8 +3,9 @@ package com.ianindratama.newsapp.core.utils
 import com.ianindratama.newsapp.core.data.source.local.entity.NewsEntity
 import com.ianindratama.newsapp.core.data.source.remote.response.NewsResponse
 import com.ianindratama.newsapp.core.domain.model.News
+import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
 
-object DataMapper {
+object NewsDataMapper {
     fun mapResponsesToEntities(input: List<NewsResponse>): List<NewsEntity> {
         val newsList = ArrayList<NewsEntity>()
         input.map {
@@ -39,6 +40,20 @@ object DataMapper {
             description = input.description,
             title = input.title,
             content = input.content,
+            isFavorite = input.isFavorite
+        )
+
+    fun mapDomainToPresentation(input: News): NewsUiModel =
+        NewsUiModel(
+            id = input.id,
+            url = input.url,
+            source = input.source,
+            publishedAt = input.publishedAt,
+            finalAuthor = input.author.ifEmpty { input.source },
+            urlToImage = input.urlToImage,
+            description = input.description,
+            title = input.title,
+            finalContent = parseNewsFinalContent(input.content, input.description),
             isFavorite = input.isFavorite
         )
 }

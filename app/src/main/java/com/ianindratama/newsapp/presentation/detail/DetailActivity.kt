@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.databinding.ActivityDetailBinding
-import com.ianindratama.newsapp.presentation.utils.cleanNewsContent
+import com.ianindratama.newsapp.presentation.utils.addTextAndHyperLinkToNewsContent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -38,7 +38,7 @@ class DetailActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        detailViewModel.favoriteNews.observe(this) { newsData ->
+        detailViewModel.news.observe(this) { newsData ->
             newsData.let {
                 Glide.with(this@DetailActivity)
                     .load(it.urlToImage)
@@ -46,15 +46,8 @@ class DetailActivity : AppCompatActivity() {
 
                 binding.tvNewsTitle.text = it.title
                 binding.tvNewsSource.text = getString(R.string.news_source, it.source)
-
-                binding.tvNewsContent.text = it.content
-                binding.tvNewsContent.cleanNewsContent(it.content, it.description, it.url)
-
-                val author = it.author
-                binding.tvNewsAuthor.text = getString(
-                    R.string.news_author,
-                    author.ifEmpty { it.source }
-                )
+                binding.tvNewsContent.addTextAndHyperLinkToNewsContent(it.finalContent, it.url)
+                binding.tvNewsAuthor.text = getString(R.string.news_author, it.finalAuthor)
 
                 setFavoriteNewsImage(it.isFavorite)
             }

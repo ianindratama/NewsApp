@@ -20,7 +20,7 @@ interface NewsDao {
     fun getAllFavoriteNews(): Flow<List<NewsEntity>>
 
     @Query("SELECT * FROM news where id = :newsId")
-    fun getFavoriteNews(newsId: Long): Flow<NewsEntity>
+    fun getNews(newsId: Long): Flow<NewsEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNews(news: List<NewsEntity>)

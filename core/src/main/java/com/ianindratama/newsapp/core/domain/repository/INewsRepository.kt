@@ -12,7 +12,7 @@ interface INewsRepository {
 
     fun getAllFavoriteNews(): Flow<List<News>>
 
-    fun getFavoriteNews(newsId: Long): Flow<News>
+    fun getNews(newsId: Long): Flow<News>
 
     fun setFavoriteNews(newsId: Long, newIsFavorite: Boolean)
 

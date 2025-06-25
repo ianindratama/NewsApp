@@ -10,7 +10,6 @@ import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.databinding.NewsItemLayoutBinding
 import com.ianindratama.newsapp.core.utils.parseNewsTimestamp
 
-// TODO: Buat model News untuk layer presentation
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {
 
     private lateinit var onItemClickCallback: OnItemClickCallback

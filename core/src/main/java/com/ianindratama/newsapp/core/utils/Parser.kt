@@ -10,3 +10,16 @@ fun parseNewsTimestamp(timestamp: String): String {
 
     return SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault()).format(date)
 }
+
+fun parseNewsFinalContent(mainContent: String, optionalContent: String): String {
+    val finalNewsContent =
+        Regex("""(.*?[.!?])(?=\s+[A-Z]|…|\s*\[\+\d+ chars])""")
+            .findAll(mainContent)
+            .map { it.value }
+            .joinToString(" ")
+            .ifEmpty {
+                optionalContent
+            }
+
+    return finalNewsContent
+}
