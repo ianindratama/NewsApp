@@ -42,6 +42,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
 
             editor.putString(getString(R.string.pref_key_dark), value)
+            editor.apply()
             val themeMode = NightMode.valueOf(value.uppercase(Locale.US)).value
             updateTheme(themeMode)
 

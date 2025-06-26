@@ -22,9 +22,9 @@
     </fragment>
     <!--
     Note:
-    FavoritesFragment unresolved reference at compile time due to being Dynamic Feature.
+    FavoritesFragment unresolved reference at compile-time due to being Dynamic Feature.
     However, it will be resolved automatically at run-time
-    by the androidx-navigation for dynamic feature library
+    by the androidx-navigation-dynamic-features-fragment library
     -->
     <fragment
         android:id="@+id/favoritesFragment"

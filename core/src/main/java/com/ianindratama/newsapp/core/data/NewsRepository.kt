@@ -8,6 +8,7 @@ import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import com.ianindratama.newsapp.core.utils.AppExecutors
 import com.ianindratama.newsapp.core.utils.NewsModelMapper
+import com.ianindratama.newsapp.core.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

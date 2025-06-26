@@ -2,11 +2,8 @@ package com.ianindratama.newsapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.ianindratama.newsapp.core.data.Resource
-import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.domain.usecase.NewsUseCase
-import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
-import com.ianindratama.newsapp.core.utils.NewsModelMapper
+import com.ianindratama.newsapp.core.utils.mapToNewsUiModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,19 +46,5 @@ class HomeViewModel(newsUseCase: NewsUseCase) : ViewModel() {
 
     fun clearSearchQuery() {
         _searchNewsQuery.value = ""
-    }
-}
-
-fun Resource<List<News>>.mapToNewsUiModel(): Resource<List<NewsUiModel>?> {
-    return when (this) {
-        is Resource.Success -> Resource.Success(
-            this.data?.map { news ->
-                NewsModelMapper.mapDomainToPresentation(news)
-            }
-        )
-        is Resource.Error -> Resource.Error(
-            this.message ?: "", null
-        )
-        is Resource.Loading -> Resource.Loading()
     }
 }

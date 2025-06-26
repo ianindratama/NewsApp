@@ -34,7 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
-import com.ianindratama.newsapp.core.data.Resource
+import com.ianindratama.newsapp.core.utils.Resource
 import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
 import com.ianindratama.newsapp.databinding.FragmentHomeBinding
@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
                         binding.circularProgressBar.visibility = View.GONE
                         Toast.makeText(
                             requireContext(),
-                            "Error: ${listOfNews.message}",
+                            getString(R.string.toast_error_message, listOfNews.message),
                             Toast.LENGTH_SHORT
                         ).show()
                     }

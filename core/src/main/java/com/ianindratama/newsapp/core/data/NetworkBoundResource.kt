@@ -2,6 +2,7 @@ package com.ianindratama.newsapp.core.data
 
 import com.ianindratama.newsapp.core.data.source.remote.network.ApiResponse
 import com.ianindratama.newsapp.core.utils.AppExecutors
+import com.ianindratama.newsapp.core.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first

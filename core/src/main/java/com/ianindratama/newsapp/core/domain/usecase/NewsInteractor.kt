@@ -1,6 +1,6 @@
 package com.ianindratama.newsapp.core.domain.usecase
 
-import com.ianindratama.newsapp.core.data.Resource
+import com.ianindratama.newsapp.core.utils.Resource
 import com.ianindratama.newsapp.core.domain.model.News
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
 import kotlinx.coroutines.flow.Flow

@@ -7,7 +7,11 @@ import com.ianindratama.newsapp.core.data.source.local.room.NewsDatabase
 import com.ianindratama.newsapp.core.data.source.remote.RemoteDataSource
 import com.ianindratama.newsapp.core.data.source.remote.network.ApiService
 import com.ianindratama.newsapp.core.domain.repository.INewsRepository
+import com.ianindratama.newsapp.core.utils.API_BASE_URL
+import com.ianindratama.newsapp.core.utils.API_USER_AGENT_KEY
+import com.ianindratama.newsapp.core.utils.API_USER_AGENT_VALUE
 import com.ianindratama.newsapp.core.utils.AppExecutors
+import com.ianindratama.newsapp.core.utils.DATABASE_FILE_NAME
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -20,7 +24,7 @@ val databaseModule = module {
     single {
         Room.databaseBuilder(
             androidContext(),
-            NewsDatabase::class.java, "News.db"
+            NewsDatabase::class.java, DATABASE_FILE_NAME
         ).fallbackToDestructiveMigration(false).build()
     }
     factory { get<NewsDatabase>().newsDao() }
@@ -30,12 +34,11 @@ val networkModule = module {
     single {
         Interceptor { chain ->
             val request = chain.request().newBuilder()
-                .header("User-Agent", "NewsApp/1.0")
+                .header(API_USER_AGENT_KEY, API_USER_AGENT_VALUE)
                 .build()
             chain.proceed(request)
         }
     }
-
     single {
         OkHttpClient.Builder()
             .connectTimeout(120, TimeUnit.SECONDS)
@@ -45,7 +48,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2/")
+            .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
