@@ -71,4 +71,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.material)
     implementation(libs.androidx.compose.material.icons.extended)
+
+    // UI Performance Related - LeakCanary
+    debugImplementation(libs.leakCanary)
 }

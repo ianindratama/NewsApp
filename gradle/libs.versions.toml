@@ -19,6 +19,7 @@ lifecycle = "2.9.1"
 glide = "4.16.0"
 navigationUiKtx = "2.9.0"
 composeBom = "2025.06.01"
+leakCanary = "2.14"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,8 +45,9 @@ androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:na
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
 androidx-compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-compose-material = { group = "androidx.compose.material", name = "material"}
-androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended"}
+androidx-compose-material = { group = "androidx.compose.material", name = "material" }
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
+leakCanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
