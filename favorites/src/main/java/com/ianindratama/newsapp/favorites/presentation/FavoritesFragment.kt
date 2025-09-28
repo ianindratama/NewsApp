@@ -19,7 +19,8 @@ import org.koin.core.context.loadKoinModules
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() =
+        requireNotNull(_binding) { "Error: FragmentFavoritesBinding is null" }
 
     private val favoritesViewModel: FavoritesViewModel by viewModel()
 
