@@ -11,9 +11,14 @@ import com.ianindratama.newsapp.core.utils.API_BASE_URL
 import com.ianindratama.newsapp.core.utils.API_USER_AGENT_KEY
 import com.ianindratama.newsapp.core.utils.API_USER_AGENT_VALUE
 import com.ianindratama.newsapp.core.utils.AppExecutors
+import com.ianindratama.newsapp.core.utils.CERTIFICATE_1
+import com.ianindratama.newsapp.core.utils.CERTIFICATE_2
+import com.ianindratama.newsapp.core.utils.CERTIFICATE_3
 import com.ianindratama.newsapp.core.utils.DATABASE_FILE_NAME
+import com.ianindratama.newsapp.core.utils.HOST_NAME
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -46,9 +51,15 @@ val networkModule = module {
         }
     }
     single {
+        val certificatePinner = CertificatePinner.Builder()
+            .add(HOST_NAME, CERTIFICATE_1)
+            .add(HOST_NAME, CERTIFICATE_2)
+            .add(HOST_NAME, CERTIFICATE_3)
+            .build()
         OkHttpClient.Builder()
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .addInterceptor(get())
             .build()
     }
