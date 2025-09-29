@@ -14,6 +14,11 @@ jobs:
       - restore_cache:
           key: android-orb-v1-
       - run:
+          name: Create local.properties
+          command: |
+             echo "sdk.dir=$ANDROID_HOME" > local.properties
+             echo "NEWS_API_KEY=$NEWS_API_KEY" >> local.properties
+      - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
       - run:
