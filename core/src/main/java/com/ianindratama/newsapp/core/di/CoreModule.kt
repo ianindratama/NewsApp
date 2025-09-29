@@ -12,6 +12,8 @@ import com.ianindratama.newsapp.core.utils.API_USER_AGENT_KEY
 import com.ianindratama.newsapp.core.utils.API_USER_AGENT_VALUE
 import com.ianindratama.newsapp.core.utils.AppExecutors
 import com.ianindratama.newsapp.core.utils.DATABASE_FILE_NAME
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
@@ -22,10 +24,14 @@ import java.util.concurrent.TimeUnit
 
 val databaseModule = module {
     single {
+        val passphrase = SQLiteDatabase.getBytes("ianindratama-newsapp".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             NewsDatabase::class.java, DATABASE_FILE_NAME
-        ).fallbackToDestructiveMigration(false).build()
+        ).fallbackToDestructiveMigration(false)
+            .openHelperFactory(factory)
+            .build()
     }
     factory { get<NewsDatabase>().newsDao() }
 }

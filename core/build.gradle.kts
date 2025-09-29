@@ -61,4 +61,6 @@ dependencies {
     // Room
     ksp(libs.room.compiler)
     implementation(libs.androidx.room.ktx)
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 }
