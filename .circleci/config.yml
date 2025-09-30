@@ -60,10 +60,10 @@ jobs:
 #          name: Android Lint
 #          command: ./gradlew lint
 
-      # Vulnerability scan (aggregate)
+      # Vulnerability scan
       - run:
-          name: OWASP Dependency-Check (aggregate)
-          command: ./gradlew dependencyCheckAggregate
+          name: Vulnerability check
+          command: ./gradlew vulnCheck
 
       # Build
       - run:

@@ -170,6 +170,12 @@ dependencyCheck {
     failBuildOnCVSS = 7.0F
 }
 
+// ---------- Vulnerability Check ----------
+tasks.register("vulnCheck") {
+    group = "verification"
+    description = "Run vulnCheck on all subprojects"
+}
+
 // ---------- Convenience CI aggregate ----------
 tasks.register("ciQualityGate") {
     group = "verification"
@@ -178,6 +184,6 @@ tasks.register("ciQualityGate") {
         "ktlintAll",
         "jacocoMergedReport",
         "jacocoMergedCoverageVerification",
-        "dependencyCheckAggregate" // scans all subprojects
+        "vulnCheck"
     )
 }
