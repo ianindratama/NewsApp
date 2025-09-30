@@ -42,7 +42,7 @@ jobs:
 
       # Style
       - run:
-          name: KTLint (all modules)
+          name: Code Style - KTLint (all modules)
           command: ./gradlew ktlintFormat
 
       # Unit tests + merged coverage + gate
