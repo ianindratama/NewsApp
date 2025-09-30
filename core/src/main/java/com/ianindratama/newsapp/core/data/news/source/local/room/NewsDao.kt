@@ -13,7 +13,12 @@ interface NewsDao {
     @Query("SELECT * FROM news")
     fun getAllHighlightedNews(): Flow<List<NewsEntity>>
 
-    @Query("SELECT * FROM news where title LIKE '%' || :search || '%' OR description LIKE '%' || :search || '%' OR content LIKE '%' || :search || '%'")
+    @Query(
+        "SELECT * FROM news where " +
+                "title LIKE '%' || :search || '%' OR " +
+                "description LIKE '%' || :search || '%' OR " +
+                "content LIKE '%' || :search || '%'"
+    )
     fun getAllSearchedNews(search: String): Flow<List<NewsEntity>>
 
     @Query("SELECT * FROM news where isFavorite = 1")
