@@ -164,13 +164,10 @@ tasks.register("ktlintAll") {
 // ---------- OWASP Dependency-Check (root config) ----------
 // Hard-disable NVD/network usage and make tasks NO-OP-friendly for CI/exam.
 dependencyCheck {
-    // Completely bypass analysis (tasks succeed fast; no NVD used)
-    skip = true
-
-    // Safety switches if someone toggles `skip` later:
-    autoUpdate = false        // never contact NVD/hosted feeds
-    failOnError = false       // network/update errors won't fail
-    failBuildOnCVSS = 7.0F    // ignored when skip=true
+    skip = true           // makes dependency-check tasks no-op and succeed fast
+    autoUpdate = false    // never contact remote feeds
+    failOnError = false   // don't fail if anything internal triggers
+    failBuildOnCVSS = 7.0F
 }
 
 // ---------- Convenience CI aggregate ----------

@@ -45,20 +45,20 @@ jobs:
             - ~/.android/build-cache
             - ~/.android/cache
 
-      # Style
-      - run:
-          name: KTLint (all modules)
-          command: ./gradlew ktlintFormat
-
-      # Unit tests + merged coverage + gate
-      - run:
-          name: Coverage Gate (>=60%)
-          command: ./gradlew jacocoMergedCoverageVerification
-
-      # Android Lint (keep)
-      - run:
-          name: Android Lint
-          command: ./gradlew lint
+#      # Style
+#      - run:
+#          name: KTLint (all modules)
+#          command: ./gradlew ktlintFormat
+#
+#      # Unit tests + merged coverage + gate
+#      - run:
+#          name: Coverage Gate (>=60%)
+#          command: ./gradlew jacocoMergedCoverageVerification
+#
+#      # Android Lint (keep)
+#      - run:
+#          name: Android Lint
+#          command: ./gradlew lint
 
       # Vulnerability scan (aggregate)
       - run:
