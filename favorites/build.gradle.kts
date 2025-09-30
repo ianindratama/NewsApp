@@ -4,7 +4,7 @@ plugins {
 }
 android {
     namespace = "com.ianindratama.newsapp.favorites"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 28
