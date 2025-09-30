@@ -5,7 +5,6 @@ import com.ianindratama.newsapp.core.data.settings.model.UserSettingsDto
 import com.ianindratama.newsapp.core.ui.utils.Cryptography
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
