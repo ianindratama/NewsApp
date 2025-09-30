@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.ianindratama.newsapp.core"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 28
