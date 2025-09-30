@@ -1,8 +1,8 @@
 version: 2.1
- 
+
 orbs:
   android: circleci/android@2.3.0
- 
+
 jobs:
   build:
     executor:
@@ -11,38 +11,94 @@ jobs:
       tag: default
     steps:
       - checkout
+
+      # Restore caches
       - restore_cache:
-          key: android-orb-v1-
+          keys:
+            - android-orb-v1-{{ .Branch }}-
+            - android-orb-v1-
+      - restore_cache:
+          keys:
+            - owasp-nvd-v1-{{ .Branch }}-
+            - owasp-nvd-v1-
+
       - run:
           name: Create local.properties
           command: |
-             echo "sdk.dir=$ANDROID_HOME" > local.properties
-             echo "NEWS_API_KEY=$NEWS_API_KEY" >> local.properties
+            echo "sdk.dir=$ANDROID_HOME" > local.properties
+            echo "NEWS_API_KEY=$NEWS_API_KEY" >> local.properties
+
       - run:
           name: Chmod permissions
           command: sudo chmod +x ./gradlew
+
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+
       - save_cache:
-          key: 'android-orb-v1-{{ epoch }}'
+          key: android-orb-v1-{{ .Branch }}-{{ epoch }}
           paths:
             - ~/.gradle/caches
             - ~/.gradle/wrapper
             - .gradle/configuration-cache
             - ~/.android/build-cache
             - ~/.android/cache
+
+      # Style
+      - run:
+          name: KTLint (all modules)
+          command: ./gradlew ktlintAll
+
+      # Unit tests + merged coverage + gate
+      - run:
+          name: Coverage Gate (>=60%)
+          command: ./gradlew jacocoMergedCoverageVerification
+
+      # Android Lint (keep)
+      - run:
+          name: Android Lint
+          command: ./gradlew lint
+
+      # Vulnerability scan (aggregate)
+      - run:
+          name: OWASP Dependency-Check (aggregate)
+          command: ./gradlew dependencyCheckAggregate
+
+      # Build
       - run:
           name: Run Build
           command: ./gradlew build
-      - store_artifacts: 
-          path: app/build/reports
-          destination: reports
-      - run:
-          name: Run Tests
-          command: ./gradlew lint test
+
+      # Cache OWASP DB
+      - save_cache:
+          key: owasp-nvd-v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - ~/.org.owasp.dependencycheck
+
+      # Test results & artifacts
       - store_test_results:
           path: app/build/test-results
-      - store_artifacts:  
-          path: app/build/outputs/apk/debug/
-          destination: artifact-file
+      - store_test_results:
+          path: core/build/test-results
+      - store_test_results:
+          path: favorite/build/test-results
+
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports/app
+      - store_artifacts:
+          path: core/build/reports
+          destination: reports/core
+      - store_artifacts:
+          path: favorite/build/reports
+          destination: reports/favorite
+      - store_artifacts:
+          path: build/reports/jacoco
+          destination: reports/jacoco-root
+      - store_artifacts:
+          path: build/reports/dependency-check-report.html
+          destination: reports/owasp
+      - store_artifacts:
+          path: build/reports/dependency-check-report.json
+          destination: reports/owasp
