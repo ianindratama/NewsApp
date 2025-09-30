@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ianindratama.newsapp.core.databinding.NewsItemLayoutBinding
-import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
+import com.ianindratama.newsapp.core.presentation.model.news.NewsUiModel
 import com.ianindratama.newsapp.core.utils.parseNewsTimestamp
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ListViewHolder>() {

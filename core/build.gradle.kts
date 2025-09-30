@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -63,4 +64,8 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.android.database.sqlcipher)
     implementation(libs.androidx.sqlite.ktx)
+
+    // Preference - DataStore
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.kotlinx.serialization.json)
 }

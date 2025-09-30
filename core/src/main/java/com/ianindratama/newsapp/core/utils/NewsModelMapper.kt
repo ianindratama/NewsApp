@@ -1,9 +1,9 @@
 package com.ianindratama.newsapp.core.utils
 
-import com.ianindratama.newsapp.core.data.model.NewsEntity
-import com.ianindratama.newsapp.core.data.source.remote.response.NewsResponse
-import com.ianindratama.newsapp.core.domain.model.News
-import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
+import com.ianindratama.newsapp.core.data.news.model.NewsEntity
+import com.ianindratama.newsapp.core.data.news.source.remote.response.NewsResponse
+import com.ianindratama.newsapp.core.domain.news.model.News
+import com.ianindratama.newsapp.core.presentation.model.news.NewsUiModel
 
 object NewsModelMapper {
     fun mapListResponseToListData(input: List<NewsResponse>): List<NewsEntity> {

@@ -54,6 +54,7 @@ dependencies {
 
     // Android
     api(libs.androidx.constraintlayout)
+    implementation(libs.androidx.core.splashscreen)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity)
@@ -61,7 +62,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Preference
+    // Preference - UI
     implementation(libs.androidx.preference.ktx)
 
     // Lifecycle

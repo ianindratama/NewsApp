@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
-import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
+import com.ianindratama.newsapp.core.presentation.model.news.NewsUiModel
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
 import com.ianindratama.newsapp.favorites.databinding.FragmentFavoritesBinding
-import com.ianindratama.newsapp.favorites.favoritesViewModelModule
+import com.ianindratama.newsapp.favorites.di.favoritesViewModelModule
 import com.ianindratama.newsapp.presentation.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules

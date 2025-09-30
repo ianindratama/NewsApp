@@ -2,7 +2,7 @@ package com.ianindratama.newsapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
-import com.ianindratama.newsapp.core.domain.usecase.NewsUseCase
+import com.ianindratama.newsapp.core.domain.news.usecase.NewsUseCase
 import com.ianindratama.newsapp.core.utils.mapToNewsUiModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview

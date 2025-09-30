@@ -1,7 +1,7 @@
 package com.ianindratama.newsapp.core.utils
 
-import com.ianindratama.newsapp.core.domain.model.News
-import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
+import com.ianindratama.newsapp.core.domain.news.model.News
+import com.ianindratama.newsapp.core.presentation.model.news.NewsUiModel
 
 fun Resource<List<News>>.mapToNewsUiModel(): Resource<List<NewsUiModel>?> {
     return when (this) {

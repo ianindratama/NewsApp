@@ -1,39 +1,33 @@
 package com.ianindratama.newsapp.presentation.settings
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import com.ianindratama.newsapp.R
+import com.ianindratama.newsapp.core.presentation.model.settings.UserSettingsEvent
+import com.ianindratama.newsapp.core.ui.utils.toAppThemeUiModel
+import com.ianindratama.newsapp.core.ui.utils.toNightMode
 import com.ianindratama.newsapp.presentation.MainActivity
-import com.ianindratama.newsapp.presentation.utils.NightMode
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Locale
 
 class SettingsFragment : PreferenceFragmentCompat() {
-
-    private lateinit var prefManager: SharedPreferences
-    private lateinit var editor: SharedPreferences.Editor
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        prefManager = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        editor = prefManager.edit()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as MainActivity).updateAppBarTitle(getString(R.string.settings_fragment_title))
-    }
-
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    private val settingsViewModel: SettingsViewModel by viewModel()
+    override fun onCreatePreferences(
+        savedInstanceState: Bundle?,
+        rootKey: String?
+    ) {
         setPreferencesFromResource(R.xml.settings_preferences, rootKey)
+        val prefListThemes =
+            findPreference<ListPreference>(getString(R.string.pref_key_dark))
 
-        val prefListThemes = findPreference<ListPreference>(getString(R.string.pref_key_dark))
         prefListThemes?.setOnPreferenceChangeListener { _, newValue ->
             val value = when (newValue) {
                 "on" -> getString(R.string.pref_dark_on)
@@ -41,19 +35,40 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 else -> getString(R.string.pref_dark_auto)
             }
 
-            editor.putString(getString(R.string.pref_key_dark), value)
-            editor.apply()
-            val themeMode = NightMode.valueOf(value.uppercase(Locale.US)).value
-            updateTheme(themeMode)
-
+            settingsViewModel.onUserSettingsEvent(
+                UserSettingsEvent.OnAppThemeChanged(
+                    value.uppercase(
+                        Locale.US
+                    ).toAppThemeUiModel()
+                )
+            )
             return@setOnPreferenceChangeListener true
         }
     }
 
-    private fun updateTheme(nightMode: Int): Boolean {
-        AppCompatDelegate.setDefaultNightMode(nightMode)
-        requireActivity().recreate()
-        return true
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as MainActivity).updateAppBarTitle(getString(R.string.settings_fragment_title))
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(
+                Lifecycle.State.RESUMED
+            ) {
+                settingsViewModel.userSettingsState.collectLatest { userSettings ->
+                    if (userSettings != null) {
+                        updateTheme(
+                            userSettings.appThemeUiModel.toNightMode()
+                        )
+                    }
+                }
+            }
+        }
     }
 
+    private fun updateTheme(nightMode: Int) {
+        if (AppCompatDelegate.getDefaultNightMode() != nightMode) {
+            AppCompatDelegate.setDefaultNightMode(nightMode)
+        }
+    }
 }

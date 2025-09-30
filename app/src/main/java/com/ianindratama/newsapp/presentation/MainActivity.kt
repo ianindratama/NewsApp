@@ -7,19 +7,37 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ianindratama.newsapp.databinding.ActivityMainBinding
+import com.ianindratama.newsapp.presentation.utils.DarkModeManager
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val themeManager: DarkModeManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splash = installSplashScreen()
+        var keepSplashScreenOn = true
+        splash.setKeepOnScreenCondition { keepSplashScreenOn }
+
+        lifecycleScope.launch {
+            themeManager.applyAppThemeOnce()
+            keepSplashScreenOn = false
+        }
+
+        splash.setKeepOnScreenCondition { keepSplashScreenOn }
+
         enableEdgeToEdge()
+
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)

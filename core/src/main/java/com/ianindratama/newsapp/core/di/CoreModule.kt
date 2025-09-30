@@ -1,16 +1,21 @@
 package com.ianindratama.newsapp.core.di
 
+import androidx.datastore.core.DataStore
 import androidx.room.Room
-import com.ianindratama.newsapp.core.data.NewsRepository
-import com.ianindratama.newsapp.core.data.source.local.LocalDataSource
-import com.ianindratama.newsapp.core.data.source.local.room.NewsDatabase
-import com.ianindratama.newsapp.core.data.source.remote.RemoteDataSource
-import com.ianindratama.newsapp.core.data.source.remote.network.ApiService
-import com.ianindratama.newsapp.core.domain.repository.INewsRepository
+import com.ianindratama.newsapp.core.data.news.repository.NewsRepository
+import com.ianindratama.newsapp.core.data.settings.repository.UserSettingsRepository
+import com.ianindratama.newsapp.core.data.settings.model.UserSettingsDto
+import com.ianindratama.newsapp.core.data.news.source.local.LocalDataSource
+import com.ianindratama.newsapp.core.data.news.source.local.room.NewsDatabase
+import com.ianindratama.newsapp.core.data.news.source.remote.RemoteDataSource
+import com.ianindratama.newsapp.core.data.news.source.remote.network.ApiService
+import com.ianindratama.newsapp.core.data.settings.source.local.datastore.UserSettingsStore.createUserSettingsDataStore
+import com.ianindratama.newsapp.core.domain.news.repository.INewsRepository
+import com.ianindratama.newsapp.core.domain.settings.repository.IUserSettingsRepository
 import com.ianindratama.newsapp.core.utils.API_BASE_URL
 import com.ianindratama.newsapp.core.utils.API_USER_AGENT_KEY
 import com.ianindratama.newsapp.core.utils.API_USER_AGENT_VALUE
-import com.ianindratama.newsapp.core.utils.AppExecutors
+import com.ianindratama.newsapp.core.ui.utils.AppExecutors
 import com.ianindratama.newsapp.core.utils.CERTIFICATE_1
 import com.ianindratama.newsapp.core.utils.CERTIFICATE_2
 import com.ianindratama.newsapp.core.utils.CERTIFICATE_3
@@ -78,4 +83,7 @@ val repositoryModule = module {
     single { RemoteDataSource(get()) }
     factory { AppExecutors() }
     single<INewsRepository> { NewsRepository(get(), get(), get()) }
+
+    single<DataStore<UserSettingsDto>> { createUserSettingsDataStore(androidContext()) }
+    single<IUserSettingsRepository> { UserSettingsRepository(get()) }
 }

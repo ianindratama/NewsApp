@@ -35,7 +35,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianindratama.newsapp.R
 import com.ianindratama.newsapp.core.utils.Resource
-import com.ianindratama.newsapp.core.presentation.model.NewsUiModel
+import com.ianindratama.newsapp.core.presentation.model.news.NewsUiModel
 import com.ianindratama.newsapp.core.ui.adapter.NewsAdapter
 import com.ianindratama.newsapp.databinding.FragmentHomeBinding
 import com.ianindratama.newsapp.presentation.MainActivity

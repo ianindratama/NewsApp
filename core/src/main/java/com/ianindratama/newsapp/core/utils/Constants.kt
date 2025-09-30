@@ -13,3 +13,4 @@ const val CERTIFICATE_3 = "sha256/mEflZT5enoR1FuXLgYYGqnVEoZvmf9c2bVBpiOjYQ0c="
 
 // Database related const
 const val DATABASE_FILE_NAME = "News.db"
+const val USER_SETTINGS_FILE_NAME = "user_settings.json"
