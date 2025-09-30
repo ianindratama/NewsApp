@@ -68,4 +68,11 @@ dependencies {
     // Preference - DataStore
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.serialization.json)
+
+    // Unit Test
+    testImplementation(kotlin("test"))
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)       // MockK
+    testImplementation(libs.turbine) // Turbine for Flow testing
+    testImplementation(libs.kotlinx.coroutines.test) // runTest
 }
