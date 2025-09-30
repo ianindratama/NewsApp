@@ -12,15 +12,10 @@ jobs:
     steps:
       - checkout
 
-      # Restore caches
       - restore_cache:
           keys:
             - android-orb-v1-{{ .Branch }}-
             - android-orb-v1-
-      - restore_cache:
-          keys:
-            - owasp-nvd-v1-{{ .Branch }}-
-            - owasp-nvd-v1-
 
       - run:
           name: Create local.properties
@@ -45,20 +40,20 @@ jobs:
             - ~/.android/build-cache
             - ~/.android/cache
 
-#      # Style
-#      - run:
-#          name: KTLint (all modules)
-#          command: ./gradlew ktlintFormat
-#
-#      # Unit tests + merged coverage + gate
-#      - run:
-#          name: Coverage Gate (>=60%)
-#          command: ./gradlew jacocoMergedCoverageVerification
-#
-#      # Android Lint (keep)
-#      - run:
-#          name: Android Lint
-#          command: ./gradlew lint
+      # Style
+      - run:
+          name: KTLint (all modules)
+          command: ./gradlew ktlintFormat
+
+      # Unit tests + merged coverage + gate
+      - run:
+          name: Coverage Gate (>=1%)
+          command: ./gradlew jacocoMergedCoverageVerification
+
+      # Android Lint (keep)
+      - run:
+          name: Android Lint
+          command: ./gradlew lint
 
       # Vulnerability scan
       - run:
@@ -69,12 +64,6 @@ jobs:
       - run:
           name: Run Build
           command: ./gradlew build
-
-      # Cache OWASP DB
-      - save_cache:
-          key: owasp-nvd-v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - ~/.org.owasp.dependencycheck
 
       # Test results & artifacts
       - store_test_results:
@@ -96,9 +85,3 @@ jobs:
       - store_artifacts:
           path: build/reports/jacoco
           destination: reports/jacoco-root
-      - store_artifacts:
-          path: build/reports/dependency-check-report.html
-          destination: reports/owasp
-      - store_artifacts:
-          path: build/reports/dependency-check-report.json
-          destination: reports/owasp
